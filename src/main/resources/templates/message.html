@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <th:block th:insert="fragments/general :: info"/>
+</head>
+<body>
+<header th:insert="fragments/navbar :: header"/>
+<main>
+    <div class="container border rounded my-3 p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="border rounded p-4" action="/message" method="post">
+                    <div class="form-group">
+                        <label for="text">Text:</label>
+                        <input type="text" class="form-control" id="text" placeholder="Type text" name="text">
+                    </div>
+                    <div class="form-group">
+                        <label for="tag">Tag:</label>
+                        <input type="text" class="form-control" id="tag" placeholder="Type tag" name="tag">
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form class="border rounded p-4" action="/message/filter" method="post">
+                    <div class="form-group">
+                        <label for="filter">Filter:</label>
+                        <input type="text" class="form-control" id="filter" placeholder="Type filter" name="filter">
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Text</th>
+                        <th>Tag</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="message : ${messages}">
+                        <td th:text="${message.id}"/>
+                        <td th:text="${message.text}"/>
+                        <td th:text="${message.tag}"/>
+                        <td><a th:href="'message/delete/' + ${message.id}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="fragments/navbar :: footer"/>
+</div>
+</body>
+</html>
